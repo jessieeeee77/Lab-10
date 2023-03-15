@@ -1,7 +1,7 @@
 Lab 10 - Grading the professor, Pt. 2
 ================
-Insert your name here
-Insert date here
+Zheqi
+3/15
 
 ### Load packages and data
 
