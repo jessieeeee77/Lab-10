@@ -11,17 +11,93 @@ output: github_document
 library(tidyverse) 
 library(tidymodels)
 library(openintro)
+evals <- openintro::evals
 ```
 
 ### Exercise 1
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+```{r 1}
+mbty <- lm(bty_avg ~ score, data = evals)
+summary(mbty)
+#mbty=2.2237+.5256bty_avg, R-squared:  0.03502,	Adjusted R-squared:  0.03293 
+```
+
 
 ### Exercise 2
+```{r 2}
+m_bty_gen <-lm(score~bty_avg+gender, data=evals)
+summary(m_bty_gen)
+#score=3.74734+.07bty_avg+.17(male),Multiple R-squared:  0.05912,	Adjusted R-squared:  0.05503 
+```
+```{r 3}
+#when bty_avg is 0 and gender is female, the score is 3.74734, does not have a meaning in this case.The slope means each increase in bty_avg, score increases .07
+```
 
-...
+```{r 4}
+#5.9% is explained by the m_bty_gen.
+```
+```{r 5}
+#scores=3.91734+.07bty_avg
+```
+```{r 6}
+#males.
+```
+```{r 7}
+#higher beauty associated with higher scores, but males receive higher scores with the same level of beauty.
+```
+```{r 8}
+#r-adjusted increases because gender help predict scores.Gender explains extra 2.21% of variance in scores.
+```
+```{r 9}
+#adding gender flattens the slope of bty_avg.
+```
+
+```{r 10}
+m_bty_rank<-lm(score~bty_avg+rank, data=evals)
+summary(m_bty_rank)
+#score=3.98155+.06783bty_avg-.1607_tenure_track/-.12632tenured
+#the intercept is when bty_avg=0, teaching professors receive 3.98155.
+#the slope is .06783, each increase in bty_avg increases .06783 in scores.
+```
+```{r 11}
+# think cls_student is not relevant to the score.
+
+
+```
+```{r 12}
+m_cls_st <-lm(score~cls_students, data=evals)
+summary(m_cls_st)
+#score=4.1643491+.0001881cls_students
+#Multiple R-squared:  0.0006744,	Adjusted R-squared:  -0.001493 
+```
+```{r 13}
+#age. I think it does not predict scores.
+```
+
+```{r 14}
+full_model<-lm(score~rank+ ethnicity+ gender+ language+ cls_perc_eval+ cls_did_eval+ cls_students+ cls_level+ cls_profs+ cls_credits+ bty_avg, data=evals)
+summary(full_model)
+```
+```{r 15}
+best_model<-lm(score~gender+ethnicity+cls_credits+bty_avg, data=evals)
+summary(best_model)
+#score=3.51398+0.14687male+0.20775(minority)h+0.58015 non-credit+0.08214vty_avg
+```
+```{r 16}
+#numerical:each increase in bty_avg increases 0.08214 in score
+#categorical:holding other variables constant, males are 0.14687 higher in the score than females.
+```
+
+```{r 17}
+#male, minority, one-credit, and higher beauty score.
+```
+```{r 18}
+#not very comfortable. does not know the course content and demographic of students in other universities so could not generalize the conclusion.s
+```
+
+
+
+
+
 
 Add exercise headings as needed.
